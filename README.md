@@ -1,4 +1,4 @@
-# REST API powered by Spring-Boot
+# REST API using Spring-Boot
 
 Used : Spring Data JPA,Hibernate,H2 database + Spring Security and Postman for testing
 
