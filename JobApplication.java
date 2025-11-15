@@ -13,20 +13,15 @@ public class JobApplication {
         private Long id;
         private String applicantName;
         private String position;
-        private String status; // e.g., "Submitted", "In Review", "Rejected"
+        private String status;
 
-        // Constructor to initialize all fields
         public JobApplication(long id, String applicantName, String position, String status) {
             this.id = id;
             this.applicantName = applicantName;
             this.position = position;
             this.status = status;
         }
-
-        // Default Constructor (required by Spring for deserialization)
         public JobApplication() {}
-
-        // --- Getters and Setters ---
 
         public long getId() {
             return id;
@@ -60,10 +55,12 @@ public class JobApplication {
             this.status = status;
         }
 
-        // For better logging/debugging
+
+        //debugging puporses...
         @Override
         public String toString() {
             return "JobApplication [id=" + id + ", applicantName=" + applicantName + ", position=" + position + ", status="
                     + status + "]";
         }
     }
+
