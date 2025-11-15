@@ -18,7 +18,6 @@ import org.springframework.security.config.annotation.web.configurers.AbstractHt
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig2 {
-
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
         http
@@ -34,7 +33,6 @@ public class SecurityConfig2 {
 
                         .httpBasic(httpBasic -> {})
 
-                        // 4. Configure H2 Frame Options (Crucial for H2 Console to work in a browser)
                         .headers(headers -> headers.frameOptions(frameOptions -> frameOptions.sameOrigin()));
 
         return http.build();
@@ -62,10 +60,10 @@ public class SecurityConfig2 {
                 .build();
 
         return new InMemoryUserDetailsManager(applicant, company);
-
     }
 
 
 
 
 }
+
