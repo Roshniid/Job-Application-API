@@ -16,40 +16,37 @@ public class ApplicationController {
     @Autowired
     private AppRepository jobApplicationRepository;
 
-    // --- SUBMIT APPLICATION (POST) ---
+    // --- SUBMIT JOB APPLICATION (POST) ---
 
     @PostMapping
     public ResponseEntity<JobApplication> createApplication(@RequestBody JobApplication newApplication){
 
-        // 2. Set default status if not provided by applicant
         if (newApplication.getStatus() == null || newApplication.getStatus().isEmpty()) {
             newApplication.setStatus("Submitted");
         }
-        // 3. Save to the list (simulated database save)
 
         JobApplication savedApplication = jobApplicationRepository.save(newApplication);
 
         return new ResponseEntity<>(newApplication, HttpStatus.CREATED);
     }
 
-    // --- SEE ALL APPLICATIONS (GET) ---
+    // --- SEE ALL JOB APPLICATIONS (GET) ---
 
     @GetMapping
     public List<JobApplication> getApplications(){
         return jobApplicationRepository.findAll();
     }
 
-    // --- SEE SPECIFIC APPLICATION (GET) ---
+    // --- SEE SPECIFIC JOB APPLICATION (GET) ---
     @GetMapping ("/{id}")
     public ResponseEntity<JobApplication> getApplicationById(@PathVariable long id) {
-        // Use stream to find the application by ID
         Optional<JobApplication> application = jobApplicationRepository.findById(id);
 
         return application.map(app -> new ResponseEntity<>(app, HttpStatus.OK))
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-        // --- UPDATE THE APPLICATION (PUT) ---
+        // --- UPDATE THE JOB APPLICATION (PUT) ---
 
     @PutMapping ("/{id}")
     public ResponseEntity<JobApplication> updateApplication(@PathVariable Long id, @RequestBody JobApplication updatedApplication){
@@ -58,7 +55,6 @@ public class ApplicationController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
-        // Crucial step for PUT: ensure the object being saved has the existing ID
         updatedApplication.setId(id);
 
         JobApplication result = jobApplicationRepository.save(updatedApplication);
@@ -66,9 +62,8 @@ public class ApplicationController {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
-    // --- DELETE APPLICATION (DELETE) ---
+    // --- DELETE JOB APPLICATION (DELETE) ---
 
-    // --- DELETE APPLICATION (DELETE) ---
     @DeleteMapping ("/{id}")
     public ResponseEntity<String> deleteApplication(@PathVariable Long id){
 
@@ -80,6 +75,7 @@ public class ApplicationController {
 
         return new ResponseEntity<>("Deletion successful for ID: " + id, HttpStatus.OK);
     }
+
 
 
 }
